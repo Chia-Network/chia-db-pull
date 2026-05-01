@@ -38,7 +38,7 @@ delete_db_files() {
     rm -f "${DB_DIR}/sub-epoch-summaries" "${DB_DIR}/sub-epoch-summaries${CACHE_SUFFIX}"
 }
 
-download_from_s3() {
+download_cache_files() {
     mkdir -p "$DB_DIR"
 
     echo "Downloading cache files from S3..."
@@ -46,6 +46,10 @@ download_from_s3() {
         echo "WARNING: Failed to download height-to-hash, node will regenerate it"
     aws s3 cp "${S3_PREFIX}/sub-epoch-summaries" "${DB_DIR}/sub-epoch-summaries${CACHE_SUFFIX}" || \
         echo "WARNING: Failed to download sub-epoch-summaries, node will regenerate it"
+}
+
+download_db() {
+    mkdir -p "$DB_DIR"
 
     echo "Downloading blockchain DB from S3..."
     aws s3 cp "${S3_PREFIX}/${DB_FILE}" "$DB_PATH"
@@ -73,9 +77,11 @@ if [ -f "$DB_PATH" ]; then
 
     echo "Local height ${local_height} is below minimum ${MIN_HEIGHT}, re-downloading..."
     delete_db_files
+    download_cache_files
+    download_db
 else
     echo "No existing DB found at ${DB_PATH}"
+    download_cache_files
+    download_db
 fi
-
-download_from_s3
 echo "Done"

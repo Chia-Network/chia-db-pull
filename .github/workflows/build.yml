@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    paths:
+      - "entrypoint.sh"
+      - "Dockerfile"
+      - ".github/workflows/build.yml"
   workflow_dispatch:
   schedule:
     - cron: '30 12 * * 5'

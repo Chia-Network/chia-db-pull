@@ -1,0 +1,21 @@
+name: Build Container Image
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '30 12 * * 5'
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}-${{ github.event_name }}-${{ github.ref == 'refs/heads/main' && github.sha || '' }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    uses: Chia-Network/actions/.github/workflows/docker-build.yaml@main
+    with:
+      docker-context: "."
+      dockerfile: "./Dockerfile"
+      push: ${{ github.event_name != 'pull_request' }}

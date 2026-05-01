@@ -76,12 +76,11 @@ if [ -f "$DB_PATH" ]; then
     fi
 
     echo "Local height ${local_height} is below minimum ${MIN_HEIGHT}, re-downloading..."
-    delete_db_files
-    download_cache_files
-    download_db
 else
     echo "No existing DB found at ${DB_PATH}"
-    download_cache_files
-    download_db
 fi
+
+delete_db_files
+download_cache_files
+download_db
 echo "Done"

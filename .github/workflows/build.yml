@@ -16,6 +16,4 @@ jobs:
   package:
     uses: Chia-Network/actions/.github/workflows/docker-build.yaml@main
     with:
-      docker-context: "."
-      dockerfile: "./Dockerfile"
       push: ${{ github.event_name != 'pull_request' }}

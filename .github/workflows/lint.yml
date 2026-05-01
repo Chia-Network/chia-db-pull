@@ -16,4 +16,3 @@ jobs:
       - uses: actions/checkout@v6
       - name: Run ShellCheck
         run: shellcheck entrypoint.sh
-        

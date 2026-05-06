@@ -10,6 +10,10 @@ if [ -z "$S3_PREFIX" ]; then
     exit 1
 fi
 
+while [ "${S3_PREFIX%/}" != "$S3_PREFIX" ]; do
+    S3_PREFIX="${S3_PREFIX%/}"
+done
+
 DB_DIR="${CHIA_ROOT}/db"
 DB_FILE="blockchain_v2_${NETWORK}.sqlite"
 DB_PATH="${DB_DIR}/${DB_FILE}"

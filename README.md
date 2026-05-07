@@ -31,5 +31,8 @@ Configuration is via environment variables.
 AWS credentials must be available to the AWS CLI in the usual ways (env vars, instance/IRSA role, mounted credentials file, etc.). The S3 bucket must contain the following objects under `S3_PREFIX`:
 
 - `${S3_PREFIX}/blockchain_v2_${NETWORK}.sqlite`
+
+The following are also optionally downloaded from `S3_PREFIX` if they're in the same path:
+
 - `${S3_PREFIX}/height-to-hash`
 - `${S3_PREFIX}/sub-epoch-summaries`

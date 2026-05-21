@@ -27,6 +27,7 @@ Configuration is via environment variables.
 | `NETWORK` | no | `mainnet` | Chia network name. Used in the DB filename and cache suffix. |
 | `CHIA_ROOT` | no | `$HOME/.chia/mainnet` | Chia root directory. The DB is written under `${CHIA_ROOT}/db`. |
 | `MIN_HEIGHT` | no | `2000` | Minimum local block height considered "fresh enough". Below this, the DB is re-downloaded. |
+| `AWS_ASSUME_ROLE_ARN` | no | — | If set, the script will chain into this role via `sts:AssumeRole` before talking to S3. Useful when the AWS Web Identity available to the script lives in a different AWS account than the S3 bucket. Requires `AWS_ROLE_ARN` and `AWS_WEB_IDENTITY_TOKEN_FILE` to be present; common sources for these are EKS IRSA, GitHub Actions OIDC, and other `AssumeRoleWithWebIdentity` setups. |
 
 AWS credentials must be available to the AWS CLI in the usual ways (env vars, instance/IRSA role, mounted credentials file, etc.). The S3 bucket must contain the following objects under `S3_PREFIX`:
 
